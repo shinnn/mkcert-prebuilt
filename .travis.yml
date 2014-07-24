@@ -1,0 +1,14 @@
+if: branch !~ ^v\d
+language: node_js
+node_js: node
+before_install: npm install --global npm
+jobs:
+  include:
+  - dist: xenial
+    after_success: node_modules/.bin/nyc report > coverage.lcov && bash <(curl -s https://codecov.io/bash) -X gcov
+  - os: osx
+    osx_image: xcode10.1
+    script: node test/test.js
+  - os: windows
+    before_install: cmd "/C npm install --global npm"
+    script: node test\\test.js

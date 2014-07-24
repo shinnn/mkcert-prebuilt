@@ -1,0 +1,70 @@
+{
+	"name": "mkcert-prebuilt",
+	"version": "1.0.0",
+	"description": "An installer for mkcert prebuilt binary",
+	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"repository": "shinnn/mkcert-prebuilt",
+	"license": "ISC",
+	"scripts": {
+		"install": "node install.js",
+		"pretest": "eslint .",
+		"test": "nyc node test/test.js",
+		"prepublishOnly": "node prepublish.js"
+	},
+	"files": [
+		"*.bin",
+		"index.js",
+		"install.js"
+	],
+	"bin": {
+		"mkcert": "1.2.0.bin"
+	},
+	"keywords": [
+		"mkcert",
+		"prebuilt",
+		"install",
+		"installation",
+		"binary",
+		"go",
+		"golang",
+		"native",
+		"ca",
+		"certificate",
+		"development",
+		"local",
+		"secure",
+		"pem",
+		"cross-platform"
+	],
+	"dependencies": {
+		"arch": "^2.1.1",
+		"load-from-cwd-or-npm": "^3.0.1",
+		"platform-name": "^1.0.0",
+		"reject-unsatisfied-npm-version": "^1.0.0"
+	},
+	"devDependencies": {
+		"@shinnn/eslint-config": "^6.8.9",
+		"eslint": "^5.12.0",
+		"nock": "^10.0.6",
+		"nyc": "^13.1.0",
+		"nyc-config-common": "^1.0.1",
+		"pretend-platform": "^2.0.0",
+		"tape": "^4.9.2"
+	},
+	"eslintConfig": {
+		"extends": "@shinnn",
+		"overrides": [
+			{
+				"files": [
+					"install.js"
+				],
+				"rules": {
+					"no-process-exit": "off"
+				}
+			}
+		]
+	},
+	"nyc": {
+		"extends": "nyc-config-common"
+	}
+}
