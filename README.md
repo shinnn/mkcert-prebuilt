@@ -58,7 +58,7 @@ This function searches this path for [`.bowerrc`](http://bower.io/docs/config/).
 The absolute path where bower components should be saved. It depends on the [`cwd` property](http://bower.io/docs/config/#cwd) and [`directory` property](http://bower.io/docs/config/#directory) of `.bowerrc`. If this function cannot find `.bowerrc`, it uses the default value (`{"directory": "bower_components"}`).
 
 ```javascript
-// /path/to/your/project/foo.bowerrc: {"cwd": "bar", "directory": "baz"}
+// /path/to/your/project/foo/.bowerrc: {"cwd": "bar", "directory": "baz"}
 
 bowerDirectory({cwd: 'foo'}, function(err, dir) {
   if (err) {
@@ -91,7 +91,7 @@ bower-directory
 
 bower-directory --help
 > bower-directory:
-> Detect the path where bower components should be saved
+>   Detect the path where bower components should be saved
 
 bower-directory --version
 > 0.1.0
