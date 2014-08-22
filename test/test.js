@@ -7,7 +7,7 @@ var path = require('path');
 var pkg = require('load-pkg');
 
 var bowerDirectory = require('require-main')();
-var bowerDirectoryBin = path.resolve(pkg.bin);
+var bowerDirectoryBin = 'node ' + path.resolve(pkg.bin);
 
 var baseDir = path.resolve('test/fixtures');
 
