@@ -4,12 +4,12 @@ var fs = require('fs');
 var path = require('path');
 
 var isFileSync = require('is-file').sync;
-var objectAssign = require('object-assign');
+var xtend = require('xtend');
 
 var stripBOM = str => str.replace(/^\uFEFF/g, '');
 
 var parseBowerrc = str => {
-  return objectAssign({
+  return xtend({
     cwd: '',
     directory: 'bower_components'
   }, JSON.parse(stripBOM(str)));
@@ -18,7 +18,7 @@ var parseBowerrc = str => {
 var joinCwdDir = bowerrc => path.join(bowerrc.cwd, bowerrc.directory);
 
 module.exports = function bowerDirectory(_opts, _cb) {
-  var option = objectAssign({cwd: ''}, _opts || {});
+  var option = xtend({cwd: ''}, _opts || {});
   var callback = _cb || _opts;
 
   fs.readFile(path.resolve(option.cwd, '.bowerrc'), (readErr, buf) => {
@@ -37,7 +37,7 @@ module.exports = function bowerDirectory(_opts, _cb) {
 };
 
 module.exports.sync = function bowerDirectorySync(_opts = {}) {
-  var option = objectAssign({cwd: ''}, _opts);
+  var option = xtend({cwd: ''}, _opts);
   var bowerrcPath = path.resolve(option.cwd, '.bowerrc');
 
   if (isFileSync(bowerrcPath)) {

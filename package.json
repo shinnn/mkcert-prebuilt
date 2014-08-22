@@ -30,7 +30,7 @@
   "dependencies": {
     "is-file": "^1.0.0",
     "minimist": "^0.2.0",
-    "object-assign": "^0.3.1"
+    "xtend": "^4.0.0"
   },
   "devDependencies": {
     "del": "^0.1.1",
