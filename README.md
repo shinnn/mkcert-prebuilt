@@ -2,6 +2,7 @@
 
 [![NPM version](https://badge.fury.io/js/bower-directory.svg)](http://badge.fury.io/js/bower-directory)
 [![Build Status](https://travis-ci.org/shinnn/bower-directory.svg?branch=master)](https://travis-ci.org/shinnn/bower-directory)
+[![Build status](https://ci.appveyor.com/api/projects/status/dxdbd19qc0ei2738)](https://ci.appveyor.com/project/ShinnosukeWatanabe/bower-directory)
 [![Dependency Status](https://david-dm.org/shinnn/bower-directory.svg)](https://david-dm.org/shinnn/bower-directory)
 [![devDependency Status](https://david-dm.org/shinnn/bower-directory/dev-status.svg)](https://david-dm.org/shinnn/bower-directory#info=devDependencies)
 
