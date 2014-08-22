@@ -29,17 +29,17 @@
   ],
   "dependencies": {
     "is-file": "^1.0.0",
-    "minimist": "^0.2.0",
+    "minimist": "^1.1.0",
     "xtend": "^4.0.0"
   },
   "devDependencies": {
-    "del": "^0.1.1",
-    "gulp": "^3.8.6",
-    "gulp-esnext": "^0.3.1",
-    "gulp-jshint": "^1.8.0",
+    "del": "^0.1.2",
+    "gulp": "^3.8.7",
+    "gulp-esnext": "^1.0.0",
+    "gulp-jshint": "^1.8.4",
     "gulp-jsonlint": "0.0.3",
     "gulp-load-plugins": "^0.5.3",
-    "gulp-mocha": "^0.5.2",
+    "gulp-mocha": "^1.0.0",
     "gulp-rename": "^1.2.0",
     "gulp-template": "^1.0.0",
     "jshint-stylish": "^0.4.0",
