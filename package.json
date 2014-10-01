@@ -34,17 +34,17 @@
   },
   "devDependencies": {
     "del": "^0.1.2",
-    "gulp": "^3.8.7",
-    "gulp-esnext": "^1.0.0",
-    "gulp-jshint": "^1.8.4",
-    "gulp-jsonlint": "0.0.3",
-    "gulp-load-plugins": "^0.5.3",
-    "gulp-mocha": "^1.0.0",
+    "gulp": "^3.8.8",
+    "gulp-esnext": "^1.1.1",
+    "gulp-jshint": "^1.8.5",
+    "gulp-jsonlint": "^0.1.0",
+    "gulp-load-plugins": "^0.7.0",
+    "gulp-mocha": "^1.1.0",
     "gulp-rename": "^1.2.0",
-    "gulp-template": "^1.0.0",
-    "jshint-stylish": "^0.4.0",
+    "gulp-template": "^1.1.0",
+    "jshint-stylish": "^1.0.0",
     "load-pkg": "^0.1.0",
-    "merge-stream": "^0.1.5",
+    "merge-stream": "^0.1.6",
     "require-main": "^0.1.1"
   }
 }
