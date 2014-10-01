@@ -1,5 +1,3 @@
-project_id: 'dxdbd19qc0ei2738'
-
 version: '{build}'
 
 environment:
@@ -14,6 +12,5 @@ install:
 build: off
 
 test_script:
-  - node --version
-  - ps: npm test
-  - cmd: npm test
+  - ps: 'node test\test.js # PowerShell'
+  - cmd: node test\test.js
