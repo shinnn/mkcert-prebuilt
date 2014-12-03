@@ -1,3 +1,6 @@
+init:
+  - git config --global core.autocrlf input
+
 version: '{build}'
 
 environment:
@@ -6,11 +9,15 @@ environment:
     - nodejs_version: '0.11'
 
 install:
-  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version)
-  - npm install
+  - ps: Install-Product node $env:nodejs_version
+  - npm install --production
+  - npm install each-exec mocha
 
 build: off
 
 test_script:
-  - ps: 'node test\test.js # PowerShell'
-  - cmd: node test\test.js
+  - ps: 'node node_modules\.bin\_mocha test\test.js # PowerShell'
+  - cmd: node node_modules\.bin\_mocha test\test.js
+
+cache:
+  - node_modules
