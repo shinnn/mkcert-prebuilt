@@ -1,8 +1,8 @@
-# bower-directory 
+# bower-directory
 
-[![NPM version](https://badge.fury.io/js/bower-directory.svg)](http://badge.fury.io/js/bower-directory)
 [![Build Status](https://travis-ci.org/shinnn/bower-directory.svg?branch=master)](https://travis-ci.org/shinnn/bower-directory)
 [![Build status](https://ci.appveyor.com/api/projects/status/dxdbd19qc0ei2738)](https://ci.appveyor.com/project/ShinnosukeWatanabe/bower-directory)
+[![Coverage Status](https://img.shields.io/coveralls/shinnn/bower-directory.svg)](https://coveralls.io/r/shinnn/bower-directory)
 [![Dependency Status](https://david-dm.org/shinnn/bower-directory.svg)](https://david-dm.org/shinnn/bower-directory)
 [![devDependency Status](https://david-dm.org/shinnn/bower-directory/dev-status.svg)](https://david-dm.org/shinnn/bower-directory#info=devDependencies)
 
@@ -15,6 +15,7 @@ bowerDirectory(function(err, result) {
   if (err) {
     throw err;
   }
+
   console.log('Bower directory: ' + result);
   // yields: "Bower directory: /path/to/your/project/bower_components"
 }); 
@@ -22,9 +23,11 @@ bowerDirectory(function(err, result) {
 
 ## Installation
 
-[Install with npm](https://www.npmjs.org/doc/cli/npm-install.html). (Make sure you have installed [Node][node])
+[![NPM version](https://badge.fury.io/js/bower-directory.svg)](http://badge.fury.io/js/bower-directory)
 
-```
+[Use npm.](https://www.npmjs.org/doc/cli/npm-install.html)
+
+```sh
 npm install --save bower-directory
 ```
 
@@ -80,13 +83,13 @@ Synchronous version of [`bowerDirectory()`](#bowerdirectoryoption-callback).
 
 You can use this module as a CLI tool by installing it globally.
 
-```
+```sh
 npm install -g bower-direcory
 ```
 
 ### Usage
 
-```
+```sh
 bower-directory
 > /path/to/current/directory/bower_components
 
@@ -102,6 +105,6 @@ bower-directory --version
 
 Copyright (c) 2014 [Shinnosuke Watanabe](https://github.com/shinnn)
 
-Licensed under [the MIT LIcense](./LICENSE).
+Licensed under [the MIT License](./LICENSE).
 
 [node]: http://nodejs.org/
