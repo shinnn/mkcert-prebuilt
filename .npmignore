@@ -1,8 +1,0 @@
-.editorconfig
-.jshintrc
-.travis.yml
-cli.js
-gulpfile.js
-index.js
-test
-tmp
