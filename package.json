@@ -18,7 +18,7 @@
     "test-only": "mocha test/test.js",
     "test": "${npm_package_scripts_test_only}",
     "coverage": "istanbul cover _mocha test/test.js",
-    "coveralls": "${npm_package_scripts_coverage} && ${npm_package_bin}"
+    "coveralls": "${npm_package_scripts_coverage} && istanbul-coveralls"
   },
   "licenses": [
     {
