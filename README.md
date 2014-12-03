@@ -6,7 +6,7 @@
 [![Dependency Status](https://david-dm.org/shinnn/bower-directory.svg)](https://david-dm.org/shinnn/bower-directory)
 [![devDependency Status](https://david-dm.org/shinnn/bower-directory/dev-status.svg)](https://david-dm.org/shinnn/bower-directory#info=devDependencies)
 
-A [Node][node] module to detect the path where [bower](http://bower.io/) components should be saved
+A [Node](http://nodejs.org/) module to detect the path where [bower](http://bower.io/) components should be saved
 
 ```javascript
 var bowerDirectory = require('bower-directory');
@@ -81,7 +81,7 @@ Synchronous version of [`bowerDirectory()`](#bowerdirectoryoption-callback).
 
 ## CLI
 
-You can use this module as a CLI tool by installing it globally.
+You can use this module as a CLI tool by installing it [globally](https://www.npmjs.org/doc/files/npm-folders.html#global-installation).
 
 ```sh
 npm install -g bower-direcory
@@ -106,5 +106,3 @@ bower-directory --version
 Copyright (c) 2014 [Shinnosuke Watanabe](https://github.com/shinnn)
 
 Licensed under [the MIT License](./LICENSE).
-
-[node]: http://nodejs.org/
