@@ -16,8 +16,8 @@ install:
 build: off
 
 test_script:
-  - ps: 'node node_modules\.bin\_mocha test\test.js # PowerShell'
-  - cmd: node node_modules\.bin\_mocha test\test.js
+  - ps: 'npm run-script test-only # PowerShell'
+  - cmd: npm run-script test-only
 
 cache:
   - node_modules
