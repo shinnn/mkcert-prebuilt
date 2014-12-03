@@ -1,17 +1,22 @@
 #!/usr/bin/env node
 'use strict';
 
-var argv = require('minimist')(process.argv.slice(2));
-var bowerDirectorySync = require('<%= main %>').sync;
+var argv = require('minimist')(process.argv.slice(2), {
+  alias: {
+    v: 'version',
+    h: 'help'
+  },
+  boolean: ['version', 'help']
+});
 
-if (argv.version || argv.v) {
-	console.log(require('../package.json').version);
-	return;
+if (argv.version) {
+  console.log(require('./package.json').version);
+} else if (argv.help) {
+  console.log(
+    'bower-directory:\n' +
+    '  Detect the path where bower components should be saved'
+  );
+} else {
+  var bowerDirectory = require('./');
+  console.log(bowerDirectory.sync());
 }
-
-if (argv.help || argv.h) {
-	console.log('bower-directory:\n  Detect the path where bower components should be saved');
-	return;
-}
-
-console.log(bowerDirectorySync());

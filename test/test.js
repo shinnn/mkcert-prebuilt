@@ -4,14 +4,17 @@ var assert = require('assert');
 var exec = require('child_process').exec;
 var path = require('path');
 
-var pkg = require('load-pkg');
+var bowerDirectory = require('../');
+var eachExec = require('each-exec');
 
-var bowerDirectory = require('require-main')();
+var pkg = require('../package.json');
 var bowerDirectoryBin = 'node ' + path.resolve(pkg.bin);
 
 var baseDir = path.resolve('test/fixtures');
 
-beforeEach(() => process.chdir(baseDir));
+beforeEach(function() {
+  process.chdir(baseDir);
+});
 
 var specs = [
   {
@@ -41,35 +44,35 @@ var specs = [
   }
 ];
 
-describe('bowerDirectory()', () => {
-  specs.forEach(spec => {
-    it(spec.message, done => {
+describe('bowerDirectory()', function() {
+  specs.forEach(function(spec) {
+    it(spec.message, function(done) {
       if (spec.chdir) {
         process.chdir(spec.chdir);
       }
-      bowerDirectory(spec.option, (err, dir) => {
-        if (err) {
-          done(err);
-          return;
+      bowerDirectory(spec.option, function(err, dir) {
+        if (!err) {
+          assert.equal(dir, path.resolve(baseDir, spec.expected));
         }
-        assert.strictEqual(dir, path.resolve(baseDir, spec.expected));
-        done();
+        done(err);
       });
     });
   });
 
-  it('should pass a syntax error when .bowerrc is not a valid JSON.', done => {
+  it('should pass a syntax error when .bowerrc is not a valid JSON.', function(done) {
     process.chdir('invalid_bowerrc');
-    bowerDirectory(err => {
-      assert.throws(() => assert.ifError(err), SyntaxError);
+    bowerDirectory(function(err) {
+      assert(err);
+      assert.equal(err.name, 'SyntaxError');
+      assert.equal(arguments.length, 1);
       done();
     });
   });
 });
 
-describe('bowerDirectory.sync()', () => {
-  specs.forEach(spec => {
-    it(spec.message, () => {
+describe('bowerDirectory.sync()', function() {
+  specs.forEach(function(spec) {
+    it(spec.message, function() {
       if (spec.chdir) {
         process.chdir(spec.chdir);
       }
@@ -80,55 +83,61 @@ describe('bowerDirectory.sync()', () => {
     });
   });
 
-  it('should throw a syntax error when .bowerrc is not a valid JSON.', () => {
+  it('should throw a syntax error when .bowerrc is not a valid JSON.', function() {
     process.chdir(path.join(baseDir, 'invalid_bowerrc'));
     assert.throws(bowerDirectory.sync, SyntaxError);
   });
 });
 
-describe('"bower-directory" command', () => {
-  specs.slice(0, 3).forEach(spec => {
-    it(spec.message, done => {
-      exec(bowerDirectoryBin, {cwd: spec.chdir}, (err, stdout) => {
-        if (err) {
-          done(err);
-          return;
+describe('"bower-directory" command', function() {
+  specs.slice(0, 3).forEach(function(spec) {
+    it(spec.message, function(done) {
+      exec(bowerDirectoryBin, {cwd: spec.chdir}, function(err, stdout, stderr) {
+        if (!err) {
+          assert.equal(stdout, path.resolve(baseDir, spec.expected + '\n'));
+          assert.equal(stderr, '');
         }
-        assert.strictEqual(
-          stdout.toString(),
-          path.resolve(baseDir, spec.expected + '\n')
-        );
         done();
       });
     });
   });
 
-  it('should fail when .bowerrc is not a valid JSON.', done => {
-    exec(bowerDirectoryBin, {cwd: 'invalid_bowerrc'}, err => {
-      assert.throws(() => assert.ifError(err));
+  it('should fail when .bowerrc is not a valid JSON.', function(done) {
+    exec(bowerDirectoryBin, {cwd: 'invalid_bowerrc'}, function(err, stdout, stderr) {
+      assert(err);
+      assert.equal(stdout, '');
+      assert(/SyntaxError/.test(stderr));
       done();
     });
   });
 
-  it('should print the introduction if `--help` flag enabled.', done => {
-    exec(bowerDirectoryBin + ' --help', (err, stdout) => {
-      if (err) {
-        done(err);
-        return;
+  it('should print usage information using `--help` or `-h` flag.', function(done) {
+    eachExec([
+      bowerDirectoryBin + ' --help',
+      bowerDirectoryBin + ' --h'
+    ], function(err, stdouts, stderrs) {
+      if (!err) {
+        assert(/bower-directory:/.test(stdouts[0]));
+        assert.equal(stdouts[0], stdouts[1]);
+        assert.equal(stderrs[0], '');
+        assert.equal(stderrs[0], stderrs[1]);
       }
-      assert(/bower-directory:/.test(stdout));
-      done();
+      done(err);
     });
   });
 
-  it('should print the version if `--version` flag enabled.', done => {
-    exec(bowerDirectoryBin + ' --version', (err, stdout) => {
-      if (err) {
-        done(err);
-        return;
+  it('should print version number using `--version` or `-v` flag.', function(done) {
+    eachExec([
+      bowerDirectoryBin + ' --version',
+      bowerDirectoryBin + ' --v'
+    ], function(err, stdouts, stderrs) {
+      if (!err) {
+        assert.equal(stdouts[0], pkg.version + '\n');
+        assert.equal(stdouts[0], stdouts[1]);
+        assert.equal(stderrs[0], '');
+        assert.equal(stderrs[0], stderrs[1]);
       }
-      assert.strictEqual(stdout, pkg.version + '\n');
-      done();
+      done(err);
     });
   });
 });

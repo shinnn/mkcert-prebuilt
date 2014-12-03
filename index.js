@@ -1,49 +1,48 @@
 'use strict';
 
-var fs = require('fs');
 var path = require('path');
 
 var isFileSync = require('is-file').sync;
-var xtend = require('xtend');
+var readJson = require('read-json');
+var readJsonSync = require('read-json-sync');
 
-var stripBOM = str => str.replace(/^\uFEFF/g, '');
+function getBowerDir(json) {
+  return path.join(json.cwd || '', json.directory || 'bower_components');
+}
 
-var parseBowerrc = str => {
-  return xtend({
-    cwd: '',
-    directory: 'bower_components'
-  }, JSON.parse(stripBOM(str)));
-};
+module.exports = function bowerDirectory(option, cb) {
+  if (cb === undefined) {
+    cb = option;
+  }
+  option = option || {};
+  var resolveFromCwd = path.resolve.bind(path, option.cwd || '');
 
-var joinCwdDir = bowerrc => path.join(bowerrc.cwd, bowerrc.directory);
+  readJson(resolveFromCwd('.bowerrc'), function(err, data) {
+    var bowerDirRelative;
 
-module.exports = function bowerDirectory(_opts, _cb) {
-  var option = xtend({cwd: ''}, _opts || {});
-  var callback = _cb || _opts;
+    if (!err) {
+      bowerDirRelative = getBowerDir(data);
+    } else {
+      if (err.name === 'SyntaxError') {
+        cb(err);
+        return;
+      }
 
-  fs.readFile(path.resolve(option.cwd, '.bowerrc'), (readErr, buf) => {
-    if (readErr) {
-      callback(null, path.resolve(option.cwd, 'bower_components'));
-      return;
+      bowerDirRelative = 'bower_components';
     }
-    
-    try {
-      var bowerrc = parseBowerrc(buf.toString());
-      callback(null, path.resolve(option.cwd, joinCwdDir(bowerrc)));
-    } catch (parseErr) {
-      callback(parseErr);
-    }
+    cb(null, resolveFromCwd(bowerDirRelative));
   });
 };
 
-module.exports.sync = function bowerDirectorySync(_opts = {}) {
-  var option = xtend({cwd: ''}, _opts);
-  var bowerrcPath = path.resolve(option.cwd, '.bowerrc');
+module.exports.sync = function bowerDirectorySync(option) {
+  option = option || {};
+  var resolveFromCwd = path.resolve.bind(path, option.cwd || '');
+
+  var bowerrcPath = resolveFromCwd('.bowerrc');
 
   if (isFileSync(bowerrcPath)) {
-    var bowerrc = parseBowerrc(fs.readFileSync(bowerrcPath).toString());
-    return path.resolve(option.cwd, joinCwdDir(bowerrc));
+    return resolveFromCwd(getBowerDir(readJsonSync(bowerrcPath)));
   } else {
-    return path.resolve(option.cwd, 'bower_components');
+    return resolveFromCwd('bower_components');
   }
 };
