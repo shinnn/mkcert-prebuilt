@@ -1,6 +1,6 @@
 {
   "name": "bower-directory",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Detect the path where bower components should be saved",
   "repository": "shinnn/bower-directory",
   "author": {
