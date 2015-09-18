@@ -37,10 +37,8 @@
     "command-line"
   ],
   "dependencies": {
-    "is-file": "^1.0.0",
     "minimist": "^1.1.0",
-    "read-json": "^0.1.0",
-    "read-json-sync": "^1.0.0"
+    "bower": "^1.5.2"
   },
   "devDependencies": {
     "each-exec": "^1.0.0",

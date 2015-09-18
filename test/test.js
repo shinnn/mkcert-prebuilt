@@ -25,7 +25,7 @@ var specs = [
   {
     message: 'should specify a path according to the cwd property of .bowerrc.',
     chdir: 'includes_bowerrc/cwd',
-    expected: 'bower_components'
+    expected: 'includes_bowerrc/cwd/bower_components'
   },
   {
     message: 'should specify a path according to the directory property of .bowerrc.',
@@ -57,15 +57,15 @@ describe('bowerDirectory()', function() {
         done(err);
       });
     });
-  });
 
-  it('should pass a syntax error when .bowerrc is not a valid JSON.', function(done) {
-    process.chdir('invalid_bowerrc');
-    bowerDirectory(function(err) {
-      assert(err);
-      assert.equal(err.name, 'SyntaxError');
-      assert.equal(arguments.length, 1);
-      done();
+    it('should pass an error when parsing .bowerrc fails.', function(done) {
+      process.chdir('invalid_bowerrc');
+      bowerDirectory(function(err) {
+        assert(err);
+        assert.equal(err.name, 'Error');
+        assert.equal(arguments.length, 2);
+        done();
+      });
     });
   });
 });
@@ -85,14 +85,21 @@ describe('bowerDirectory.sync()', function() {
 
   it('should throw a syntax error when .bowerrc is not a valid JSON.', function() {
     process.chdir(path.join(baseDir, 'invalid_bowerrc'));
-    assert.throws(bowerDirectory.sync, SyntaxError);
+    assert.throws(bowerDirectory.sync, Error);
+  });
+
+  it('should fail when a .bowerrc directory is found.', function() {
+    process.chdir(path.join(baseDir, 'invalid_directory_bowerrc'));
+    assert.throws(bowerDirectory.sync, Error);
   });
 });
 
 describe('"bower-directory" command', function() {
   specs.slice(0, 3).forEach(function(spec) {
     it(spec.message, function(done) {
-      exec(bowerDirectoryBin, {cwd: spec.chdir}, function(err, stdout, stderr) {
+      exec(bowerDirectoryBin, {
+        cwd: spec.chdir || spec.option.cwd
+      }, function(err, stdout, stderr) {
         if (!err) {
           assert.equal(stdout, path.resolve(baseDir, spec.expected + '\n'));
           assert.equal(stderr, '');
@@ -106,7 +113,7 @@ describe('"bower-directory" command', function() {
     exec(bowerDirectoryBin, {cwd: 'invalid_bowerrc'}, function(err, stdout, stderr) {
       assert(err);
       assert.equal(stdout, '');
-      assert(/SyntaxError/.test(stderr));
+      assert(/Error/.test(stderr));
       done();
     });
   });
