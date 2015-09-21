@@ -19,13 +19,15 @@ function bowerDirectory(option, cb) {
     cb = option;
   }
 
-  try {
-    p = bowerDirectorySync(option);
-  } catch (e) {
-    err = e;
-  } finally {
-    cb(err, p);
-  }
+  setTimeout(function() {
+    try {
+      p = bowerDirectorySync(option);
+    } catch (e) {
+      err = e;
+    } finally {
+      cb(err, p);
+    }
+  }, 0);
 }
 
 module.exports = bowerDirectory;
