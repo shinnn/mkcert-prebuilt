@@ -12,12 +12,12 @@
 		"prepublishOnly": "node prepublish.js"
 	},
 	"files": [
-		"*.bin",
+		"[0-9].[0-9].[0-9]",
 		"index.js",
 		"install.js"
 	],
 	"bin": {
-		"mkcert": "1.2.0.bin"
+		"mkcert": "1.2.0"
 	},
 	"keywords": [
 		"mkcert",
