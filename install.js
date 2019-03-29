@@ -11,8 +11,8 @@ if (process.platform !== 'darwin' && process.platform !== 'linux' && process.pla
 
 const arch = require('arch');
 
-if (arch() === 'x86') {
-	console.error('mkcert doesn\'t support 32 bit architecture.');
+if (arch() !== 'x64') {
+	console.error('mkcert doesn\'t support non 64 bit architectures.');
 	process.exit(1);
 }
 
@@ -54,7 +54,12 @@ for (const [config, npmConfig] of new Map([
 			rejectUnsatisfiedNpmVersion('6.5.0')
 		]);
 
-		await promisify(pipeline)(request({url}).on('response', function({statusCode, statusMessage}) {
+		await promisify(pipeline)(request({
+			url,
+			headers: {
+				'user-agent': `${name}/${pkgVersion}`
+			}
+		}).on('response', function({statusCode, statusMessage}) {
 			if (statusCode === 200) {
 				return;
 			}

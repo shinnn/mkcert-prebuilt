@@ -116,7 +116,7 @@ test('`install` npm script', async t => {
 						`--volume=${projectDir}:${projectDir}`,
 						`--workdir=${projectDir}`,
 						...process.env.CI ? ['--env', 'CI=true'] : [],
-						'i386/node:11-alpine',
+						'i386/node:alpine',
 						'npx',
 						'nyc',
 						'--no-clean',
@@ -127,7 +127,7 @@ test('`install` npm script', async t => {
 					t.fail('Unexpectedly succeeded.');
 				} catch ({message}) {
 					t.ok(
-						message.includes('mkcert doesn\'t support 32 bit architecture.'),
+						message.includes('mkcert doesn\'t support non 64 bit architectures.'),
 						'should fail when the architecture is 32 bit.'
 					);
 				}
