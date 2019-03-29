@@ -1,6 +1,6 @@
 {
 	"name": "mkcert-prebuilt",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "An installer for mkcert prebuilt binary",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
 	"repository": "shinnn/mkcert-prebuilt",
@@ -43,13 +43,13 @@
 		"reject-unsatisfied-npm-version": "^1.0.0"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config": "^6.8.9",
-		"eslint": "^5.12.0",
+		"@shinnn/eslint-config": "^6.9.2",
+		"eslint": "^5.15.3",
 		"nock": "^10.0.6",
-		"nyc": "^13.1.0",
+		"nyc": "^13.3.0",
 		"nyc-config-common": "^1.0.1",
-		"pretend-platform": "^2.0.0",
-		"tape": "^4.9.2"
+		"pretend-platform": "^3.0.0",
+		"tape": "^4.10.1"
 	},
 	"eslintConfig": {
 		"extends": "@shinnn",
