@@ -6,7 +6,7 @@ jobs:
   - dist: xenial
     after_success: node_modules/.bin/nyc report > coverage.lcov && bash <(curl -s https://codecov.io/bash) -X gcov
   - os: osx
-    osx_image: xcode10.1
+    osx_image: xcode10.2
     script: node test/test.js
   - os: windows
     script: node test\\test.js
